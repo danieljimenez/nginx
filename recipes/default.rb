@@ -21,9 +21,13 @@
 
 include_recipe "nginx::#{node['nginx']['install_method']}"
 
-service 'nginx' do
-  supports :status => true, :restart => true, :reload => true
-  action   :start
+
+
+unless platform_family?('mac_os_x')
+  service 'nginx' do
+    supports :status => true, :restart => true, :reload => true
+    action   :start
+  end
 end
 
 node['nginx']['default']['modules'].each do |ngx_module|

@@ -36,6 +36,22 @@ if platform_family?('rhel')
 elsif platform_family?('debian')
   include_recipe 'nginx::repo_passenger' if node['nginx']['repo_source'] == 'passenger'
   include_recipe 'nginx::repo'           if node['nginx']['repo_source'] == 'nginx'
+elsif platform_family?('mac_os_x')
+  launch_agents_path = File.expand_path(File.join(Dir.home(node['nginx']['user']), 'Library/LaunchAgents'))
+
+  directory launch_agents_path do
+    action :create
+    recursive true
+    owner node['nginx']['user']
+  end
+
+  plist_filename = 'homebrew.mxcl.nginx.plist'
+  install_path = File.join('/usr', 'local', 'opt', "nginx")
+  launch_agent_plist_filename = File.join(launch_agents_path, plist_filename)
+
+  template launch_agent_plist_filename do
+    source 'nginx.init.erb'
+  end
 end
 
 package node['nginx']['package_name'] do
@@ -45,7 +61,9 @@ package node['nginx']['package_name'] do
 end
 
 service 'nginx' do
-  supports :status => true, :restart => true, :reload => true
+  supports :status => true, :restart => true
+  supports :reload => true unless platform_family?('mac_os_x')
+  service_name "homebrew.mxcl.nginx" if platform_family?('mac_os_x')
   action   :enable
 end
 
