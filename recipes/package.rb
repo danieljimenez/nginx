@@ -62,7 +62,6 @@ end
 
 service 'nginx' do
   supports :status => true, :restart => true
-  supports :reload => true unless platform_family?('mac_os_x')
   service_name "homebrew.mxcl.nginx" if platform_family?('mac_os_x')
   action   :enable
 end
