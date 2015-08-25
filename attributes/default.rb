@@ -35,6 +35,7 @@ default['nginx']['default_root'] = '/var/www/nginx-default'
 default['nginx']['ulimit']       = '1024'
 
 default['nginx']['pid'] = '/var/run/nginx.pid'
+default['nginx']['notify_cmd']  = :reload
 
 case node['platform_family']
 when 'debian'
@@ -59,6 +60,7 @@ when 'mac_os_x'
   default['nginx']['binary']       = '/usr/local/bin/nginx'
   default['nginx']['default_root'] = '/usr/local/opt/nginx/html'
   default['nginx']['pid']          = '/usr/local/var/run/nginx/nginx.pid'
+  default['nginx']['notify_cmd']   = :restart
 when 'freebsd'
   default['nginx']['package_name'] = 'www/nginx'
   default['nginx']['user']         = 'www'

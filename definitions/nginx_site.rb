@@ -31,7 +31,7 @@ define :nginx_site, :enable => true, :timing => :delayed do
 
     execute "nxensite #{params[:name]}" do
       command "#{node['nginx']['script_dir']}/nxensite #{params[:name]}"
-      notifies :reload, 'service[nginx]', params[:timing]
+      notifies node['nginx']['notify_cmd'], 'service[nginx]', params[:timing]
       not_if do
         ::File.symlink?("#{node['nginx']['dir']}/sites-enabled/#{params[:name]}") ||
           ::File.symlink?("#{node['nginx']['dir']}/sites-enabled/000-#{params[:name]}")
@@ -40,7 +40,7 @@ define :nginx_site, :enable => true, :timing => :delayed do
   else
     execute "nxdissite #{params[:name]}" do
       command "#{node['nginx']['script_dir']}/nxdissite #{params[:name]}"
-      notifies :reload, 'service[nginx]', params[:timing]
+      notifies node['nginx']['notify_cmd'], 'service[nginx]', params[:timing]
       only_if do
         ::File.symlink?("#{node['nginx']['dir']}/sites-enabled/#{params[:name]}") ||
           ::File.symlink?("#{node['nginx']['dir']}/sites-enabled/000-#{params[:name]}")

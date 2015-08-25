@@ -18,7 +18,7 @@ template node['nginx']['dir'] + '/sites-available/socketproxy.conf' do
   owner 'root'
   group 'root'
   mode 00644
-  notifies :reload, 'service[nginx]', :delayed
+  notifies node['nginx']['notify_cmd'], 'service[nginx]', :delayed
 end
 
 link node['nginx']['dir'] + '/sites-enabled/socketproxy.conf' do

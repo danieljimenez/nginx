@@ -28,5 +28,5 @@ template 'authorized_ip' do
   owner  'root'
   group  node['root_group']
   mode   '0644'
-  notifies :reload, 'service[nginx]', :delayed
+  notifies node['nginx']['notify_cmd'], 'service[nginx]', :delayed
 end
