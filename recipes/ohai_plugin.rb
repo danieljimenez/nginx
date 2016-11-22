@@ -24,7 +24,7 @@ ohai 'reload_nginx' do
   action :nothing
 end
 
-template "#{node['ohai']['plugin_path']}/nginx.rb" do
+template "/etc/chef/ohai_plugins/nginx.rb" do
   source 'plugins/nginx.rb.erb'
   owner  'root'
   group  node['root_group']
