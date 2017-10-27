@@ -20,7 +20,7 @@
 #
 
 ohai 'reload_nginx' do
-  plugin 'nginx'
+  plugin 'chef_nginx'
   action :nothing
 end
 

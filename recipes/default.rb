@@ -19,7 +19,7 @@
 # limitations under the License.
 #
 
-include_recipe "nginx::#{node['nginx']['install_method']}"
+include_recipe "chef_nginx::#{node['nginx']['install_method']}"
 
 
 

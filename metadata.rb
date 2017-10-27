@@ -1,12 +1,12 @@
-name              'nginx'
+name              'chef_nginx'
 maintainer        'Chef Software, Inc.'
 maintainer_email  'cookbooks@chef.io'
 license           'Apache 2.0'
 description       'Installs and configures nginx'
 version           '2.7.7'
 
-recipe 'nginx',         'Installs nginx package and sets up configuration with Debian apache style with sites-enabled/sites-available'
-recipe 'nginx::source', 'Installs nginx from source and sets up configuration with Debian apache style with sites-enabled/sites-available'
+recipe 'chef_nginx',         'Installs nginx package and sets up configuration with Debian apache style with sites-enabled/sites-available'
+recipe 'chef_nginx::source', 'Installs nginx from source and sets up configuration with Debian apache style with sites-enabled/sites-available'
 
 depends 'apt', '~> 2.2'
 depends 'bluepill'

@@ -18,7 +18,7 @@
 # limitations under the License.
 #
 
-include_recipe 'nginx::ohai_plugin'
+include_recipe 'chef_nginx::ohai_plugin'
 
 if platform_family?('rhel')
   if node['nginx']['repo_source'] == 'epel'
@@ -66,4 +66,4 @@ service 'nginx' do
   action   :enable
 end
 
-include_recipe 'nginx::commons'
+include_recipe 'chef_nginx::commons'
